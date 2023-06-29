@@ -16,25 +16,27 @@ function RegisterPage() {
   };
 
   return (
-    <section className="flex min-h-screen">
+    <>
       <Loading />
-      <header className="flex-grow bg-blue-500 justify-center items-center flex">
-        <h1>
-          <IoPeopleCircleOutline className="w-48 h-48" />
-        </h1>
-      </header>
-      <article className="flex-grow flex justify-center items-center flex-col gap-4">
-        <h2 className="text-4xl mb-20">Register Page</h2>
+      <section className="flex min-h-screen">
+        <header className="flex-grow bg-blue-500 justify-center items-center flex">
+          <h1>
+            <IoPeopleCircleOutline className="w-48 h-48" />
+          </h1>
+        </header>
+        <article className="flex-grow flex justify-center items-center flex-col gap-4">
+          <h2 className="text-4xl mb-20">Register Page</h2>
 
-        <RegisterInput register={onRegister} />
-        <p className="w-full px-28">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-800 underline">
-            Login
-          </Link>
-        </p>
-      </article>
-    </section>
+          <RegisterInput register={onRegister} />
+          <p className="w-full px-28">
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-800 underline">
+              Login
+            </Link>
+          </p>
+        </article>
+      </section>
+    </>
   );
 }
 
