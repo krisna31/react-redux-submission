@@ -19,15 +19,15 @@ const api = (() => {
     });
   }
 
-  async function register({ id, name, password }) {
-    const response = await fetch(`${BASE_URL}/users`, {
+  async function register({ name, email, password }) {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
         name,
+        email,
         password,
       }),
     });
@@ -44,14 +44,14 @@ const api = (() => {
     return user;
   }
 
-  async function login({ id, password }) {
+  async function login({ email, password }) {
     const response = await fetch(`${BASE_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id,
+        email,
         password,
       }),
     });
