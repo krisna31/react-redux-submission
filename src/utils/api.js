@@ -160,15 +160,14 @@ const api = (() => {
     return detailThread;
   }
 
-  async function createTalk({ text, replyTo = '' }) {
-    const response = await _fetchWithAuth(`${BASE_URL}/talks`, {
+  async function createComment({ threadId, content }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        text,
-        replyTo,
+        content
       }),
     });
 
@@ -180,20 +179,14 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { talk } } = responseJson;
+    const { data: { comment } } = responseJson;
 
-    return talk;
+    return comment;
   }
 
-  async function toggleLikeTalk(id) {
-    const response = await _fetchWithAuth(`${BASE_URL}/talks/likes`, {
+  async function upVoteThread({ threadId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/up-vote`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        talkId: id,
-      }),
     });
 
     const responseJson = await response.json();
@@ -203,6 +196,46 @@ const api = (() => {
     if (status !== 'success') {
       throw new Error(message);
     }
+
+    const { data: { vote } } = responseJson;
+
+    return vote;
+  }
+
+  async function downVoteThread({ threadId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/down-vote`, {
+      method: 'POST',
+    });
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { vote } } = responseJson;
+
+    return vote;
+  }
+
+  async function neutralVoteThread({ threadId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
+      method: 'POST',
+    });
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { vote } } = responseJson;
+
+    return vote;
   }
 
   return {
@@ -213,9 +246,11 @@ const api = (() => {
     createThread,
     getAllThreads,
     getThreadDetail,
+    createComment,
     getAllUsers,
-    createTalk,
-    toggleLikeTalk,
+    upVoteThread,
+    downVoteThread,
+    neutralVoteThread,
   };
 })();
 
