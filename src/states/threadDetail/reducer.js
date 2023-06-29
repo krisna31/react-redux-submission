@@ -1,6 +1,6 @@
 import { ActionType } from './action';
 
-function talkDetailReducer(talkDetail = null, action = {}) {
+function threadDetailReducer(talkDetail = null, action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_THREAD_DETAIL:
       return action.payload.threadDetail;
@@ -25,4 +25,4 @@ function talkDetailReducer(talkDetail = null, action = {}) {
   }
 }
 
-export default talkDetailReducer;
+export default threadDetailReducer;
