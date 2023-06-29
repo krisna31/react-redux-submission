@@ -21,12 +21,12 @@ function ThreadDetail({ id, title, body, category, createdAt, upVotesBy, downVot
   };
 
   return (
-    <div className="flex flex-col gap-5 p-6 min-w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="flex flex-col gap-5 p-6 min-w-full bg-white border-l border-r border-t border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <span className="bg-blue-100 text-blue-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 w-fit">#{category}</span>
       <Link to={`/threads/${id}`} className="mb-2 text-3xl font-bold tracking-tight text-blue-800 dark:text-white">
         {title}
       </Link>
-      <div className="font-normal text-gray-700 dark:text-gray-400">{<div dangerouslySetInnerHTML={{ __html: body.length > 90 ? body.slice(0, 90) + "....." : body }} />}</div>
+      <div className="font-normal text-gray-700 dark:text-gray-400">{<div dangerouslySetInnerHTML={{ __html: body }} />}</div>
       <div className="flex gap-5">
         {isUpVoted ? (
           <button onClick={(e) => onUpVoteHandler(e)} className="flex items-center justify-center gap-1">

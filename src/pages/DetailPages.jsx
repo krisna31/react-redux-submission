@@ -37,7 +37,7 @@ function DetailPage() {
   }
 
   return (
-    <section className="container px-28 flex flex-col justify-center items-center">
+    <section className="container flex flex-col justify-center items-center">
       <Loading />
       <ThreadDetail key={threadDetail.id} {...threadDetail} upVote={onUpVoteThreadDetail} downVote={onDownVoteThreadDetail} authUser={authUser.id} />
       {/* {talkDetail.parent && (
