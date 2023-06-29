@@ -5,7 +5,7 @@ function ThreadList({ threads, upVote, downVote }) {
   return (
     <div className="flex flex-col justify-center items-center gap-5 w-full">
       {threads.map((thread) => (
-        <ThreadItem key={thread.id} {...thread} />
+        <ThreadItem key={thread.id} {...thread} upVote={upVote} downVote={downVote} />
       ))}
     </div>
   );

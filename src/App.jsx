@@ -6,7 +6,6 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import Navigation from "./components/Navigation";
 import RegisterPage from "./pages/RegisterPage";
-import DetailPage from "./pages/DetailPage";
 import { asyncPreloadProcess } from "./states/isPreload/action.js";
 import { asyncUnsetAuthUser } from "./states/authUser/action.js";
 
