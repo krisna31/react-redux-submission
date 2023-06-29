@@ -13,8 +13,6 @@ function Leaderboards() {
     dispatch(asyncReceiveLeaderboards());
   }, [dispatch]);
 
-  console.log(leaderboards);
-
   return (
     <section className="container px-28 flex flex-col justify-center items-center pb-10 pt-5">
       <Loading />

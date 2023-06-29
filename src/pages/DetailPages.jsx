@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncReceiveThreadDetail, asyncToogleDownVoteThreadDetail, asyncToogleUpVoteThreadDetail } from "../states/threadDetail/action";
-import { asyncDownVoteComment, asyncUpVoteComment } from "../states/comments/action";
+import { asyncAddComment, asyncDownVoteComment, asyncUpVoteComment } from "../states/comments/action";
 import NotFoundPages from "./NotFoundPages";
 import Loading from "../components/Loading";
 import ThreadDetail from "../components/ThreadDetail";
+import CommentInput from "../components/CommentInput";
+import CommentList from "../components/CommentList";
 
 function DetailPage() {
   const { id } = useParams();
@@ -24,12 +26,17 @@ function DetailPage() {
     dispatch(asyncToogleDownVoteThreadDetail());
   };
 
-  const onUpVoteComment = ({ threadId, commentId }) => {
-    dispatch(asyncUpVoteComment({ threadId, commentId }));
+  const onAddComment = ({ content }) => {
+    dispatch(asyncAddComment({ threadId: id, content }));
   };
 
-  const onDownVoteComment = ({ threadId, commentId }) => {
-    dispatch(asyncDownVoteComment({ threadId, commentId }));
+  const onUpVoteComment = (commentId) => {
+    dispatch(asyncUpVoteComment({ threadId: id, commentId }));
+  };
+
+  const onDownVoteComment = (commentId) => {
+    console.log(commentId);
+    dispatch(asyncDownVoteComment({ threadId: id, commentId }));
   };
 
   if (!threadDetail) {
@@ -40,6 +47,8 @@ function DetailPage() {
     <section className="container flex flex-col justify-center items-center">
       <Loading />
       <ThreadDetail key={threadDetail.id} {...threadDetail} upVote={onUpVoteThreadDetail} downVote={onDownVoteThreadDetail} authUser={authUser.id} />
+      <CommentInput addComment={onAddComment} threadId={id} />
+      <CommentList upVote={onUpVoteComment} downVote={onDownVoteComment} comments={threadDetail.comments} authUser={authUser.id} />
       {/* {talkDetail.parent && (
         <div className="detail-page__parent">
           <h3>Replying To</h3>

@@ -50,7 +50,7 @@ function App() {
         <nav className="sticky bottom-0">
           <Navigation authUser={authUser} signOut={onSignOut} />
         </nav>
-        <main className="flex w-screen flex-col justify-center items-center overflow-x-hidden">
+        <main className="flex w-screen flex-col justify-center items-center">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/leaderboards" element={<Leaderboards />} />
