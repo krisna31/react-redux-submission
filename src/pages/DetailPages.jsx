@@ -35,7 +35,6 @@ function DetailPage() {
   };
 
   const onDownVoteComment = (commentId) => {
-    console.log(commentId);
     dispatch(asyncDownVoteComment({ threadId: id, commentId }));
   };
 
@@ -49,14 +48,6 @@ function DetailPage() {
       <ThreadDetail key={threadDetail.id} {...threadDetail} upVote={onUpVoteThreadDetail} downVote={onDownVoteThreadDetail} authUser={authUser.id} />
       <CommentInput addComment={onAddComment} threadId={id} />
       <CommentList upVote={onUpVoteComment} downVote={onDownVoteComment} comments={threadDetail.comments} authUser={authUser.id} />
-      {/* {talkDetail.parent && (
-        <div className="detail-page__parent">
-          <h3>Replying To</h3>
-          <TalkItem {...talkDetail.parent} authUser={authUser.id} />
-        </div>
-      )}
-      <TalkDetail {...talkDetail} authUser={authUser.id} likeTalk={onLikeTalk} />
-      <TalkReplyInput replyTalk={onReplyTalk} /> */}
     </section>
   );
 }
