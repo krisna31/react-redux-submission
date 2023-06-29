@@ -4,20 +4,20 @@ import { postedAt } from "../utils";
 import { BiCommentDetail, BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
 import { IoIosCreate } from "react-icons/io";
 
-function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotesBy, authUser, createdBy, totalComments, upVote, downVote }) {
+function ThreadDetail({ id, title, body, category, createdAt, upVotesBy, downVotesBy, authUser, totalComments, upVote, downVote, owner }) {
   const isUpVoted = upVotesBy.includes(authUser);
   const isDownVoted = downVotesBy.includes(authUser);
 
   const onUpVoteHandler = (event) => {
     event.stopPropagation();
-    isDownVoted && downVote(id);
-    upVote(id);
+    isDownVoted && downVote();
+    upVote();
   };
 
   const onDownVoteHandler = (event) => {
     event.stopPropagation();
-    isUpVoted && upVote(id);
-    downVote(id);
+    isUpVoted && upVote();
+    downVote();
   };
 
   return (
@@ -62,7 +62,7 @@ function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotes
         </span>
         <span className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 w-fit gap-2 ">
           <IoIosCreate />
-          {createdBy.name}
+          {owner?.name}
         </span>
       </div>
     </div>
@@ -70,13 +70,13 @@ function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotes
 }
 
 const userShape = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   name: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
+  email: PropTypes.string,
+  avatar: PropTypes.string,
 };
 
-const threadItemShape = {
+const ThreadDetailShape = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
@@ -84,15 +84,15 @@ const threadItemShape = {
   createdAt: PropTypes.string.isRequired,
   upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  authUser: PropTypes.string.isRequired,
-  createdBy: PropTypes.shape(userShape).isRequired,
+  authUser: PropTypes.string,
+  owner: PropTypes.shape(userShape),
   totalComments: PropTypes.number,
 };
 
-ThreadItem.propTypes = {
-  ...threadItemShape,
+ThreadDetail.propTypes = {
+  ...ThreadDetailShape,
   upVote: PropTypes.func,
   downVote: PropTypes.func,
 };
 
-export default ThreadItem;
+export default ThreadDetail;

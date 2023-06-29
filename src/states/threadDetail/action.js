@@ -63,13 +63,14 @@ function asyncToogleUpVoteThreadDetail() {
   return async (dispatch, getState) => {
     dispatch(showLoading());
     const { authUser, threadDetail } = getState();
+    console.log(threadDetail);
     dispatch(toggleUpVoteThreadDetailActionCreator({
       threadId: threadDetail.id,
       userId: authUser.id,
     }));
 
     try {
-      await api.upVoteThread(threadDetail.id);
+      await api.upVoteThread({ threadId: threadDetail.id });
     } catch (error) {
       alert(error.message);
     }
@@ -88,7 +89,7 @@ function asyncToogleDownVoteThreadDetail() {
     }));
 
     try {
-      await api.downVoteThread(threadDetail.id);
+      await api.downVoteThread({ threadId:threadDetail.id });
     } catch (error) {
       alert(error.message);
     }
