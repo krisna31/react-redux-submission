@@ -1,5 +1,6 @@
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api';
+import { receiveUsersActionCreator } from '../users/action';
 
 const ActionType = {
   RECEIVE_THREADS: 'RECEIVE_THREADS',
@@ -52,8 +53,10 @@ function asyncGetThreads() {
 
     try {
       const threads = await api.getAllThreads();
+      const users = await api.getAllUsers();
       
       dispatch(receiveThreadsActionCreator(threads));
+      dispatch(receiveUsersActionCreator(users));
     } catch (error) {
       alert(error.message);
     }
