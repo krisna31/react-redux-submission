@@ -52,6 +52,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/leaderboards" element={<h1>Leaderboards</h1>} />
             <Route path="/threads/:id" element={<h1>detail path</h1>} />
+            <Route path="/*" element={<h1 className="text-4xl text-center py-5 bg-blue-300 h-screen flex justify-center items-center overflow-hidden">404 Not Found</h1>} />
           </Routes>
         </main>
       </div>
