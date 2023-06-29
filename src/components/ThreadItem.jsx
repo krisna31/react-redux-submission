@@ -1,11 +1,10 @@
 import PropTypes from "prop-types";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { postedAt } from "../utils";
 import { BiCommentDetail, BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
 import { IoIosCreate } from "react-icons/io";
 
 function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotesBy, authUser, createdBy, totalComments, upVote, downVote }) {
-  const navigate = useNavigate();
   const isUpVoted = upVotesBy.includes(authUser);
   const isDownVoted = downVotesBy.includes(authUser);
 
@@ -20,16 +19,6 @@ function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotes
     isUpVoted && upVote(id);
     downVote(id);
   };
-
-  // const onTalkClick = () => {
-  //   navigate(`/talks/${id}`);
-  // };
-
-  // const onTalkPress = (event) => {
-  //   if (event.key === "Enter" || event.key === " ") {
-  //     navigate(`/talks/${id}`);
-  //   }
-  // };
 
   return (
     <div className="flex flex-col gap-5 p-6 min-w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

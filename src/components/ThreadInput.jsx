@@ -25,7 +25,7 @@ function ThreadInput({ addThread }) {
   }
 
   return (
-    <div className="flex flex-col gap-5 my-3">
+    <div className="flex flex-col gap-5 my-3 w-full">
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <MdTitle />

@@ -32,7 +32,7 @@ function HomePage() {
   }));
 
   return (
-    <section className="container px-28 ">
+    <section className="container px-28 flex flex-col justify-center items-center">
       <ThreadInput addThread={onAddThread} />
       <ThreadList threads={threadList} upVote={onUpVoteThread} downVote={onDownVoteThread} />
     </section>
