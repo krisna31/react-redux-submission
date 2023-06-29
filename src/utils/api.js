@@ -6,7 +6,8 @@ const api = (() => {
   }
 
   function getAccessToken() {
-    return localStorage.getItem('accessToken');
+    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItM2Q0eTdubmtHVlpxLUI3biIsImlhdCI6MTY4ODAxODE3MH0.I01-iQ5UPyJKSrBesix8NQzQSFA0ouxfD1Dnk2WoP8I';
+    // return localStorage.getItem('accessToken');
   }
 
   async function _fetchWithAuth(url, options = {}) {
@@ -101,8 +102,18 @@ const api = (() => {
     return users;
   }
 
-  async function getAllTalks() {
-    const response = await fetch(`${BASE_URL}/talks`);
+  async function createThread({ title, body, category = 'General' }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title,
+        body,
+        category
+      }),
+    });
 
     const responseJson = await response.json();
 
@@ -112,13 +123,13 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { talks } } = responseJson;
+    const { data: { thread } } = responseJson;
 
-    return talks;
+    return thread;
   }
 
-  async function getTalkDetail(id) {
-    const response = await fetch(`${BASE_URL}/talks/${id}`);
+  async function getAllThreads() {
+    const response = await fetch(`${BASE_URL}/threads`);
 
     const responseJson = await response.json();
 
@@ -128,9 +139,25 @@ const api = (() => {
       throw new Error(message);
     }
 
-    const { data: { talkDetail } } = responseJson;
+    const { data: { threads } } = responseJson;
 
-    return talkDetail;
+    return threads;
+  }
+
+  async function getThreadDetail(id) {
+    const response = await fetch(`${BASE_URL}/threads/${id}`);
+
+    const responseJson = await response.json();
+
+    const { status, message } = responseJson;
+
+    if (status !== 'success') {
+      throw new Error(message);
+    }
+
+    const { data: { detailThread } } = responseJson;
+
+    return detailThread;
   }
 
   async function createTalk({ text, replyTo = '' }) {
@@ -183,11 +210,12 @@ const api = (() => {
     register,
     login,
     getOwnProfile,
+    createThread,
+    getAllThreads,
+    getThreadDetail,
     getAllUsers,
-    getAllTalks,
     createTalk,
     toggleLikeTalk,
-    getTalkDetail,
   };
 })();
 
