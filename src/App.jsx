@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import RegisterPage from "./pages/RegisterPage";
 import { asyncPreloadProcess } from "./states/isPreload/action.js";
 import { asyncUnsetAuthUser } from "./states/authUser/action.js";
+import Leaderboards from "./pages/Leaderboards";
 
 function App() {
   const { authUser = null, isPreload = false } = useSelector((states) => states);
@@ -50,7 +51,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/leaderboards" element={<h1>Leaderboards</h1>} />
+            <Route path="/leaderboards" element={<Leaderboards />} />
             <Route path="/threads/:id" element={<h1>detail path</h1>} />
             <Route path="/*" element={<h1 className="text-4xl text-center py-5 bg-blue-300 h-screen flex justify-center items-center overflow-hidden">404 Not Found</h1>} />
           </Routes>

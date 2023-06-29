@@ -13,7 +13,7 @@ const store = configureStore({
     authUser: authUserReducer,
     comments: commentsReducer,
     isPreload: isPreloadReducer,
-    leaderboard: leaderboardReducer,
+    leaderboards: leaderboardReducer,
     threadDetail: threadDetailReducer,
     threads: threadsReducer,
     users: usersReducer,
