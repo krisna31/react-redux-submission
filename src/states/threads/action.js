@@ -77,7 +77,7 @@ function asyncAddThread({ title, body, category = 'General' }) {
   };
 }
 
-function asyncToogleUpVotethread(threadId) {
+function asyncToogleUpVoteThread(threadId) {
   return async (dispatch, getState) => {
     dispatch(showLoading());
 
@@ -85,7 +85,7 @@ function asyncToogleUpVotethread(threadId) {
     dispatch(toggleUpVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
     try {
-      await api.upVoteThread(threadId);
+      await api.upVoteThread({ threadId });
     } catch (error) {
       alert(error.message);
       dispatch(toggleUpVoteThreadActionCreator({ threadId, userId: authUser.id }));
@@ -95,7 +95,7 @@ function asyncToogleUpVotethread(threadId) {
   };
 }
 
-function asyncToogleDownVotethread(threadId) {
+function asyncToogleDownVoteThread(threadId) {
   return async (dispatch, getState) => {
     dispatch(showLoading());
 
@@ -103,7 +103,7 @@ function asyncToogleDownVotethread(threadId) {
     dispatch(toggleDownVoteThreadActionCreator({ threadId, userId: authUser.id }));
 
     try {
-      await api.upVoteThread(threadId);
+      await api.downVoteThread({ threadId });
     } catch (error) {
       alert(error.message);
       dispatch(toggleDownVoteThreadActionCreator({ threadId, userId: authUser.id }));
@@ -121,6 +121,6 @@ export {
   toggleDownVoteThreadActionCreator,
   asyncGetThreads,
   asyncAddThread,
-  asyncToogleUpVotethread,
-  asyncToogleDownVotethread,
+  asyncToogleUpVoteThread,
+  asyncToogleDownVoteThread,
 };
