@@ -6,8 +6,7 @@ const api = (() => {
   }
 
   function getAccessToken() {
-    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InVzZXItM2Q0eTdubmtHVlpxLUI3biIsImlhdCI6MTY4ODAxODE3MH0.I01-iQ5UPyJKSrBesix8NQzQSFA0ouxfD1Dnk2WoP8I';
-    // return localStorage.getItem('accessToken');
+    return localStorage.getItem('accessToken');
   }
 
   async function _fetchWithAuth(url, options = {}) {
@@ -291,7 +290,7 @@ const api = (() => {
 
     return vote;
   }
-  
+
   return {
     putAccessToken,
     register,
