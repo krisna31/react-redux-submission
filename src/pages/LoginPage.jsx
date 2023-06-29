@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import LoginInput from "../components/LoginInput";
 import { useDispatch } from "react-redux";
 import { asyncSetAuthUser } from "../states/authUser/action";
+import Loading from "../components/Loading";
 
 function LoginPage() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function LoginPage() {
 
   return (
     <section className="flex min-h-screen">
+      <Loading />
       <header className="flex-grow bg-blue-500 justify-center items-center flex">
         <h1>
           <IoPeopleCircleSharp className="w-48 h-48" />

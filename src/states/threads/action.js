@@ -76,7 +76,7 @@ function asyncAddThread({ title, body, category = 'General' }) {
       alert(error.message);
     }
 
-    dispatch(showLoading());
+    dispatch(hideLoading());
   };
 }
 

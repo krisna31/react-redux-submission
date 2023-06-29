@@ -3,6 +3,7 @@ import RegisterInput from "../components/RegisterInput";
 import { useDispatch } from "react-redux";
 import { asyncRegisterUser } from "../states/users/action";
 import { IoPeopleCircleOutline } from "react-icons/io5";
+import Loading from "../components/Loading";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function RegisterPage() {
 
   return (
     <section className="flex min-h-screen">
+      <Loading />
       <header className="flex-grow bg-blue-500 justify-center items-center flex">
         <h1>
           <IoPeopleCircleOutline className="w-48 h-48" />

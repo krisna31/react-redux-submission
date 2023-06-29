@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncAddThread, asyncGetThreads, asyncToogleDownVoteThread, asyncToogleUpVoteThread } from "../states/threads/action";
 import ThreadInput from "../components/ThreadInput";
 import ThreadList from "../components/ThreadList";
+import Loading from "../components/Loading";
 
 function HomePage() {
   const { threads = [], users = [], authUser } = useSelector((states) => states);
@@ -33,6 +34,7 @@ function HomePage() {
 
   return (
     <section className="container px-28 flex flex-col justify-center items-center">
+      <Loading />
       <ThreadInput addThread={onAddThread} />
       <ThreadList threads={threadList} upVote={onUpVoteThread} downVote={onDownVoteThread} />
     </section>
