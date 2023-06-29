@@ -1,14 +1,13 @@
 import PropTypes from "prop-types";
 import { Link, useNavigate } from "react-router-dom";
 import { postedAt } from "../utils";
-import { BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
+import { BiCommentDetail, BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
+import { IoIosCreate } from "react-icons/io";
 
 function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotesBy, authUser, createdBy, totalComments, upVote, downVote }) {
   const navigate = useNavigate();
   const isUpVoted = upVotesBy.includes(authUser);
   const isDownVoted = downVotesBy.includes(authUser);
-
-  console.log(isUpVoted);
 
   const onUpVoteHandler = (event) => {
     event.stopPropagation();
@@ -38,7 +37,7 @@ function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotes
       <Link to={`/threads/${id}`} className="mb-2 text-3xl font-bold tracking-tight text-blue-800 dark:text-white">
         {title}
       </Link>
-      <p className="font-normal text-gray-700 dark:text-gray-400">{<div dangerouslySetInnerHTML={{ __html: body }} />}</p>
+      <p className="font-normal text-gray-700 dark:text-gray-400">{<div dangerouslySetInnerHTML={{ __html: body.length > 90 ? body.slice(0, 90) + "....." : body }} />}</p>
       <div className="flex gap-5">
         {isUpVoted ? (
           <button onClick={(e) => onUpVoteHandler(e)} className="flex items-center justify-center gap-1">
@@ -62,11 +61,19 @@ function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotes
             <span>{downVotesBy.length}</span>
           </button>
         )}
+        <div className="flex items-center justify-center gap-1">
+          <BiCommentDetail />
+          <span>{totalComments}</span>
+        </div>
         <span className="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 w-fit">
           <svg aria-hidden="true" className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd"></path>
           </svg>
           {postedAt(createdAt)}
+        </span>
+        <span className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 w-fit gap-2 ">
+          <IoIosCreate />
+          {createdBy.name}
         </span>
       </div>
     </div>
