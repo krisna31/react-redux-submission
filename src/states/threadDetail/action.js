@@ -66,7 +66,6 @@ function asyncToogleUpVoteThreadDetail() {
   return async (dispatch, getState) => {
     dispatch(showLoading());
     const { authUser, threadDetail } = getState();
-    console.log(threadDetail);
     dispatch(toggleUpVoteThreadDetailActionCreator({
       threadId: threadDetail.id,
       userId: authUser.id,

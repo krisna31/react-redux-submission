@@ -7,8 +7,6 @@ function CommentItem({ id, content, createdAt, upVotesBy, downVotesBy, authUser,
   const isUpVoted = upVotesBy.includes(authUser);
   const isDownVoted = downVotesBy.includes(authUser);
 
-  console.log(upVotesBy);
-
   const onUpVoteHandler = (event) => {
     event.stopPropagation();
     isDownVoted && downVote(id);
