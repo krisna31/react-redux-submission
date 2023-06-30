@@ -32,6 +32,7 @@ function asyncReceiveLeaderboards() {
 
 
 export { 
-  ActionType, 
+  ActionType,
+  receiveLeaderboardsActionCreator,
   asyncReceiveLeaderboards
 };
