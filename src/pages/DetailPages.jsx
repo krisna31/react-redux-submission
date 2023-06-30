@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncReceiveThreadDetail, asyncToogleDownVoteThreadDetail, asyncToogleUpVoteThreadDetail } from "../states/threadDetail/action";
-import { asyncAddComment, asyncDownVoteComment, asyncUpVoteComment } from "../states/comments/action";
+import { asyncAddComment, asyncDownVoteComment, asyncReceiveThreadDetail, asyncToogleDownVoteThreadDetail, asyncToogleUpVoteThreadDetail, asyncUpVoteComment } from "../states/threadDetail/action";
 import NotFoundPages from "./NotFoundPages";
 import Loading from "../components/Loading";
 import ThreadDetail from "../components/ThreadDetail";
