@@ -61,8 +61,9 @@ function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotes
           {postedAt(createdAt)}
         </span>
         <span className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 w-fit gap-2 ">
+          <img className="w-5 h-5 rounded-full" src={createdBy?.avatar} alt={createdBy?.name} />
+          {createdBy?.name}
           <IoIosCreate />
-          {createdBy.name}
         </span>
       </div>
     </div>

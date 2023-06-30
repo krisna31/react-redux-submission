@@ -58,8 +58,9 @@ function ThreadDetail({ title, body, category, createdAt, upVotesBy, downVotesBy
           {postedAt(createdAt)}
         </span>
         <span className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 w-fit gap-2 ">
-          <IoIosCreate />
+          <img className="w-5 h-5 rounded-full" src={owner?.avatar} alt={owner?.name} />
           {owner?.name}
+          <IoIosCreate />
         </span>
       </div>
     </div>
