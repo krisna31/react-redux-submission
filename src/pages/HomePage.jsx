@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncAddThread, asyncGetThreads, asyncToogleDownVoteThread, asyncToogleUpVoteThread } from "../states/threads/action";
+import { asyncAddThread, asyncGetThreads, asyncToogleDownVoteThread, asyncToogleNeutralVoteThread, asyncToogleUpVoteThread } from "../states/threads/action";
 import ThreadInput from "../components/ThreadInput";
 import ThreadList from "../components/ThreadList";
 import Loading from "../components/Loading";
@@ -26,6 +26,10 @@ function HomePage() {
     dispatch(asyncToogleDownVoteThread(threadId));
   };
 
+  const onNeutralVoteThread = (threadId) => {
+    dispatch(asyncToogleNeutralVoteThread(threadId));
+  };
+
   const threadList = threads.map((thread) => ({
     ...thread,
     createdBy: users.find((user) => user.id === thread.ownerId),
@@ -36,7 +40,7 @@ function HomePage() {
     <section className="container px-28 flex flex-col justify-center items-center">
       <Loading />
       <ThreadInput addThread={onAddThread} />
-      <ThreadList threads={threadList} upVote={onUpVoteThread} downVote={onDownVoteThread} />
+      <ThreadList threads={threadList} upVote={onUpVoteThread} downVote={onDownVoteThread} neutralVote={onNeutralVoteThread} />
     </section>
   );
 }

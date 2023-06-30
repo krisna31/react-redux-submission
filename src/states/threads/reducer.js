@@ -30,6 +30,17 @@ function threadsReducer(threads = [], action = {}) {
         }
         return thread;
       });
+    case ActionType.TOGGLE_NEUTRAL_VOTE_THREAD:
+      return threads.map((thread) => {
+        if (thread.id === action.payload.threadId) {
+          return {
+            ...thread,
+            upVotesBy: thread.upVotesBy.filter((id) => id !== action.payload.userId),
+            downVotesBy: thread.downVotesBy.filter((id) => id !== action.payload.userId),
+          };
+        }
+        return thread;
+      });
     default:
       return threads;
   }

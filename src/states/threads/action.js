@@ -7,6 +7,7 @@ const ActionType = {
   ADD_THREAD: 'ADD_THREAD',
   TOGGLE_UPVOTE_THREAD: 'TOGGLE_UPVOTE_THREAD',
   TOGGLE_DOWNVOTE_THREAD: 'TOGGLE_DOWNVOTE_THREAD',
+  TOGGLE_NEUTRAL_VOTE_THREAD: 'TOGGLE_NEUTRAL_VOTE_THREAD',
 };
 
 function receiveThreadsActionCreator(threads) {
@@ -40,6 +41,16 @@ function toggleUpVoteThreadActionCreator({ threadId, userId }) {
 function toggleDownVoteThreadActionCreator({ threadId, userId }) {
   return {
     type: ActionType.TOGGLE_DOWNVOTE_THREAD,
+    payload: {
+      threadId,
+      userId,
+    },
+  };
+}
+
+function toggleNeutralVoteThreadActionCreator({ threadId, userId }) {
+  return {
+    type: ActionType.TOGGLE_NEUTRAL_VOTE_THREAD,
     payload: {
       threadId,
       userId,
@@ -116,6 +127,25 @@ function asyncToogleDownVoteThread(threadId) {
   };
 }
 
+function asyncToogleNeutralVoteThread(threadId) {
+  return async (dispatch, getState) => {
+    dispatch(showLoading());
+
+    
+    const { authUser } = getState();
+    dispatch(toggleNeutralVoteThreadActionCreator({ threadId, userId: authUser.id }));
+    
+    try {
+      await api.neutralVoteThread({ threadId });
+    } catch (error) {
+      alert(error.message);
+      dispatch(toggleNeutralVoteThreadActionCreator({ threadId, userId: authUser.id }));
+    }
+
+    dispatch(hideLoading());
+  };
+}
+
 export {
   ActionType,
   receiveThreadsActionCreator,
@@ -126,4 +156,5 @@ export {
   asyncAddThread,
   asyncToogleUpVoteThread,
   asyncToogleDownVoteThread,
+  asyncToogleNeutralVoteThread,
 };

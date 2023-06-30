@@ -1,11 +1,11 @@
 import PropTypes from "prop-types";
 import ThreadItem from "./ThreadItem";
 
-function ThreadList({ threads, upVote, downVote }) {
+function ThreadList({ threads, upVote, downVote, neutralVote }) {
   return (
     <div className="flex flex-col justify-center items-center gap-5 w-full">
       {threads.map((thread) => (
-        <ThreadItem key={thread.id} {...thread} upVote={upVote} downVote={downVote} />
+        <ThreadItem key={thread.id} {...thread} upVote={upVote} downVote={downVote} neutralVote={neutralVote} />
       ))}
     </div>
   );
@@ -35,6 +35,7 @@ ThreadList.propTypes = {
   threads: PropTypes.arrayOf(PropTypes.shape(threadItemShape)).isRequired,
   upVote: PropTypes.func.isRequired,
   downVote: PropTypes.func.isRequired,
+  neutralVote: PropTypes.func.isRequired,
 };
 
 export default ThreadList;

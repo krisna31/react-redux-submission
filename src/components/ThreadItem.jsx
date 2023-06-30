@@ -4,20 +4,20 @@ import { postedAt } from "../utils";
 import { BiCommentDetail, BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
 import { IoIosCreate } from "react-icons/io";
 
-function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotesBy, authUser, createdBy, totalComments, upVote, downVote }) {
+function ThreadItem({ id, title, body, category, createdAt, upVotesBy, downVotesBy, authUser, createdBy, totalComments, upVote, downVote, neutralVote }) {
   const isUpVoted = upVotesBy.includes(authUser);
   const isDownVoted = downVotesBy.includes(authUser);
 
   const onUpVoteHandler = (event) => {
     event.stopPropagation();
-    isDownVoted && downVote(id);
-    upVote(id);
+    isDownVoted && neutralVote(id);
+    isUpVoted ? neutralVote(id) : upVote(id);
   };
 
   const onDownVoteHandler = (event) => {
     event.stopPropagation();
-    isUpVoted && upVote(id);
-    downVote(id);
+    isUpVoted && neutralVote(id);
+    isDownVoted ? neutralVote(id) : downVote(id);
   };
 
   return (
@@ -92,8 +92,9 @@ const threadItemShape = {
 
 ThreadItem.propTypes = {
   ...threadItemShape,
-  upVote: PropTypes.func,
-  downVote: PropTypes.func,
+  upVote: PropTypes.func.isRequired,
+  downVote: PropTypes.func.isRequired,
+  neutralVote: PropTypes.func.isRequired,
 };
 
 export default ThreadItem;
