@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import CommentItem from "./CommentItem";
 
-function CommentList({ comments, upVote, downVote, authUser }) {
+function CommentList({ comments, upVote, downVote, authUser, neutralVote }) {
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full">
         {comments.map((comment) => (
-          <CommentItem key={comment.id} {...comment} upVote={upVote} downVote={downVote} authUser={authUser} />
+          <CommentItem key={comment.id} {...comment} upVote={upVote} downVote={downVote} authUser={authUser} neutralVote={neutralVote} />
         ))}
       </div>
       <div className="border-b" />
@@ -35,6 +35,7 @@ CommentList.propTypes = {
   upVote: PropTypes.func.isRequired,
   downVote: PropTypes.func.isRequired,
   authUser: PropTypes.string.isRequired,
+  neutralVote: PropTypes.func.isRequired,
 };
 
 export default CommentList;

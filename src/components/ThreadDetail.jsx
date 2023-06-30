@@ -3,20 +3,20 @@ import { postedAt } from "../utils";
 import { BiCommentDetail, BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
 import { IoIosCreate } from "react-icons/io";
 
-function ThreadDetail({ title, body, category, createdAt, upVotesBy, downVotesBy, authUser, totalComments, upVote, downVote, owner }) {
+function ThreadDetail({ title, body, category, createdAt, upVotesBy, downVotesBy, authUser, totalComments, upVote, downVote, owner, neutralVote }) {
   const isUpVoted = upVotesBy.includes(authUser);
   const isDownVoted = downVotesBy.includes(authUser);
 
   const onUpVoteHandler = (event) => {
     event.stopPropagation();
-    isDownVoted && downVote();
-    upVote();
+    isDownVoted && neutralVote();
+    isUpVoted ? neutralVote() : upVote();
   };
 
   const onDownVoteHandler = (event) => {
     event.stopPropagation();
-    isUpVoted && upVote();
-    downVote();
+    isUpVoted && neutralVote();
+    isDownVoted ? neutralVote() : downVote();
   };
 
   return (
@@ -89,8 +89,9 @@ const ThreadDetailShape = {
 
 ThreadDetail.propTypes = {
   ...ThreadDetailShape,
-  upVote: PropTypes.func,
-  downVote: PropTypes.func,
+  upVote: PropTypes.func.isRequired,
+  downVote: PropTypes.func.isRequired,
+  neutralVote: PropTypes.func.isRequired,
 };
 
 export default ThreadDetail;

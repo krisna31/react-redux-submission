@@ -3,20 +3,20 @@ import { postedAt } from "../utils";
 import { IoIosCreate } from "react-icons/io";
 import { BiDownvote, BiSolidDownvote, BiSolidUpvote, BiUpvote } from "react-icons/bi";
 
-function CommentItem({ id, content, createdAt, upVotesBy, downVotesBy, authUser, owner, upVote, downVote }) {
+function CommentItem({ id, content, createdAt, upVotesBy, downVotesBy, authUser, owner, upVote, downVote, neutralVote }) {
   const isUpVoted = upVotesBy.includes(authUser);
   const isDownVoted = downVotesBy.includes(authUser);
 
   const onUpVoteHandler = (event) => {
     event.stopPropagation();
-    isDownVoted && downVote(id);
-    upVote(id);
+    isDownVoted && neutralVote(id);
+    isUpVoted ? neutralVote(id) : upVote(id);
   };
 
   const onDownVoteHandler = (event) => {
     event.stopPropagation();
-    isUpVoted && upVote(id);
-    downVote(id);
+    isUpVoted && neutralVote(id);
+    isDownVoted ? neutralVote(id) : downVote(id);
   };
 
   return (
@@ -85,9 +85,10 @@ const commentItemShape = {
 
 CommentItem.propTypes = {
   ...commentItemShape,
-  upVote: PropTypes.func,
-  downVote: PropTypes.func,
+  upVote: PropTypes.func.isRequired,
+  downVote: PropTypes.func.isRequired,
   authUser: PropTypes.string.isRequired,
+  neutralVote: PropTypes.func.isRequired,
 };
 
 export default CommentItem;

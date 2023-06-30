@@ -1,7 +1,16 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncAddComment, asyncDownVoteComment, asyncReceiveThreadDetail, asyncToogleDownVoteThreadDetail, asyncToogleUpVoteThreadDetail, asyncUpVoteComment } from "../states/threadDetail/action";
+import {
+  asyncAddComment,
+  asyncDownVoteComment,
+  asyncNeutralVoteComment,
+  asyncNeutralVoteThreadDetail,
+  asyncReceiveThreadDetail,
+  asyncToogleDownVoteThreadDetail,
+  asyncToogleUpVoteThreadDetail,
+  asyncUpVoteComment,
+} from "../states/threadDetail/action";
 import NotFoundPages from "./NotFoundPages";
 import Loading from "../components/Loading";
 import ThreadDetail from "../components/ThreadDetail";
@@ -25,6 +34,10 @@ function DetailPage() {
     dispatch(asyncToogleDownVoteThreadDetail());
   };
 
+  const onNeutralVoteThreadDetail = () => {
+    dispatch(asyncNeutralVoteThreadDetail());
+  };
+
   const onAddComment = ({ content }) => {
     dispatch(asyncAddComment({ threadId: id, content }));
   };
@@ -37,6 +50,10 @@ function DetailPage() {
     dispatch(asyncDownVoteComment({ threadId: id, commentId }));
   };
 
+  const onNeutralVoteComment = (commentId) => {
+    dispatch(asyncNeutralVoteComment({ threadId: id, commentId }));
+  };
+
   if (!threadDetail) {
     return <NotFoundPages />;
   }
@@ -44,9 +61,9 @@ function DetailPage() {
   return (
     <section className="container flex flex-col justify-center items-center">
       <Loading />
-      <ThreadDetail key={threadDetail.id} {...threadDetail} upVote={onUpVoteThreadDetail} downVote={onDownVoteThreadDetail} authUser={authUser.id} />
+      <ThreadDetail key={threadDetail.id} {...threadDetail} upVote={onUpVoteThreadDetail} downVote={onDownVoteThreadDetail} authUser={authUser.id} neutralVote={onNeutralVoteThreadDetail} />
       <CommentInput addComment={onAddComment} threadId={id} />
-      <CommentList upVote={onUpVoteComment} downVote={onDownVoteComment} comments={threadDetail.comments} authUser={authUser.id} />
+      <CommentList upVote={onUpVoteComment} downVote={onDownVoteComment} comments={threadDetail.comments} authUser={authUser.id} neutralVote={onNeutralVoteComment} />
     </section>
   );
 }

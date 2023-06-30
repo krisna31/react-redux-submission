@@ -6,9 +6,11 @@ const ActionType = {
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
   TOGGLE_UPVOTE_THREAD_DETAIL: 'TOGGLE_UPVOTE_THREAD_DETAIL',
   TOGGLE_DOWNVOTE_THREAD_DETAIL: 'TOGGLE_DOWNVOTE_THREAD_DETAIL',
+  TOOGLE_NEUTRALVOTE_THREAD_DETAIL: 'TOOGLE_NEUTRALVOTE_THREAD_DETAIL',
   ADD_COMMENT: 'ADD_COMMENT',
   TOGGLE_UPVOTE_COMMENT: 'TOGGLE_UPVOTE_COMMENT',
   TOGGLE_DOWNVOTE_COMMENT: 'TOGGLE_DOWNVOTE_COMMENT',
+  TOGGLE_NEUTRALVOTE_COMMENT: 'TOGGLE_NEUTRALVOTE_COMMENT',
 };
 
 function receiveThreadDetailActionCreator(threadDetail) {
@@ -41,6 +43,58 @@ function toggleDownVoteThreadDetailActionCreator({ threadId, userId }) {
     type: ActionType.TOGGLE_DOWNVOTE_THREAD_DETAIL,
     payload: {
       threadId,
+      userId,
+    },
+  };
+}
+
+function toggleNeutralVoteThreadDetailActionCreator({ threadId, userId }) {
+  return {
+    type: ActionType.TOOGLE_NEUTRALVOTE_THREAD_DETAIL,
+    payload: {
+      threadId,
+      userId,
+    },
+  };
+}
+
+function toggleNeutralVoteCommentActionCreator({ threadId, commentId, userId }) {
+  return {
+    type: ActionType.TOGGLE_NEUTRALVOTE_COMMENT,
+    payload: {
+      threadId,
+      commentId,
+      userId,
+    },
+  };
+}
+
+function addCommentActionCreator(comment) {
+  return {
+    type: ActionType.ADD_COMMENT,
+    payload: {
+      comment,
+    },
+  };
+}
+
+function toggleUpVoteCommentActionCreator({ threadId, commentId, userId }) {
+  return {
+    type: ActionType.TOGGLE_UPVOTE_COMMENT,
+    payload: {
+      threadId,
+      commentId,
+      userId,
+    },
+  };
+}
+
+function toggleDownVoteCommentActionCreator({ threadId, commentId, userId }) {
+  return {
+    type: ActionType.TOGGLE_DOWNVOTE_COMMENT,
+    payload: {
+      threadId,
+      commentId,
       userId,
     },
   };
@@ -100,34 +154,26 @@ function asyncToogleDownVoteThreadDetail() {
   };
 }
 
-function addCommentActionCreator(comment) {
-  return {
-    type: ActionType.ADD_COMMENT,
-    payload: {
-      comment,
-    },
-  };
-}
+function asyncNeutralVoteThreadDetail() {
+  return async (dispatch, getState) => {
+    dispatch(showLoading());
+    const { authUser, threadDetail } = getState();
+    dispatch(toggleNeutralVoteThreadDetailActionCreator({
+      threadId: threadDetail.id,
+      userId: authUser.id,
+    }));
 
-function toggleUpVoteCommentActionCreator({ threadId, commentId, userId }) {
-  return {
-    type: ActionType.TOGGLE_UPVOTE_COMMENT,
-    payload: {
-      threadId,
-      commentId,
-      userId,
-    },
-  };
-}
+    try {
+      await api.neutralVoteThread({ threadId: threadDetail.id });
+    } catch (error) {
+      alert(error.message);
+      dispatch(toggleNeutralVoteThreadDetailActionCreator({
+        threadId: threadDetail.id,
+        userId: authUser.id,
+      }));
+    }
 
-function toggleDownVoteCommentActionCreator({ threadId, commentId, userId }) {
-  return {
-    type: ActionType.TOGGLE_DOWNVOTE_COMMENT,
-    payload: {
-      threadId,
-      commentId,
-      userId,
-    },
+    dispatch(hideLoading());
   };
 }
 
@@ -184,6 +230,26 @@ function asyncDownVoteComment({ threadId, commentId }) {
   };
 }
 
+function asyncNeutralVoteComment({ threadId, commentId }) {
+  return async (dispatch, getState) => {
+    dispatch(showLoading());
+
+    const { authUser } = getState();
+
+    dispatch(toggleNeutralVoteCommentActionCreator({ threadId, commentId, userId: authUser.id }));
+
+    try {
+      await api.neutralVoteComment({ threadId, commentId });
+    } catch (error) {
+      alert(error.message);
+      dispatch(toggleNeutralVoteCommentActionCreator({ threadId, commentId }));
+    }
+
+    dispatch(hideLoading());
+  };
+}
+
+
 export {
   ActionType,
   receiveThreadDetailActionCreator,
@@ -193,10 +259,12 @@ export {
   asyncReceiveThreadDetail,
   asyncToogleUpVoteThreadDetail,
   asyncToogleDownVoteThreadDetail,
+  asyncNeutralVoteThreadDetail,
   addCommentActionCreator,
   toggleUpVoteCommentActionCreator,
   toggleDownVoteCommentActionCreator,
   asyncAddComment,
   asyncUpVoteComment,
   asyncDownVoteComment,
+  asyncNeutralVoteComment,
 };
