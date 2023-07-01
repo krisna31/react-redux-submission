@@ -28,7 +28,7 @@ describe('Login spec', () => {
 
     // memverifikasi window.alert untuk menampilkan pesan dari API
     cy.on('window:alert', (str) => {
-      expect(str).to.equal('"email" is not allowed to be emptyyy');
+      expect(str).to.equal('"email" is not allowed to be empty');
     });
   });
 
